@@ -13,7 +13,7 @@ const projects = await getProjects();
       {
         projects.length > 0 ? (
           projects.map((project) => (
-            <div class="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800/40 shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800/40 shadow-sm hover:shadow-md transition-shadow">
               <div class="h-56 overflow-hidden relative">
                 {project.image ? (
                   <Image
@@ -32,8 +32,8 @@ const projects = await getProjects();
                 )}
               </div>
 
-              <div class="p-6">
-                <div class="flex justify-between items-start mb-4">
+              <div class="p-6 pb-20">
+                <div class="flex justify-between gap-2 items-start mb-4">
                   <h3 class="text-xl font-semibold">{project.title}</h3>
                   <span class="text-sm text-slate-600 dark:text-slate-400">
                     {new Date(project.date).toLocaleDateString("en-US", {
@@ -61,8 +61,8 @@ const projects = await getProjects();
                   </div>
                 )}
 
-                {project.website && (
-                  <div class="mt-6">
+                <div class="absolute bottom-6 left-6 right-6">
+                  {project.website ? (
                     <a
                       href={project.website}
                       target="_blank"
@@ -76,8 +76,12 @@ const projects = await getProjects();
                         class="h-4 w-4"
                       />
                     </a>
-                  </div>
-                )}
+                  ) : (
+                    <div class="text-sm text-slate-500 dark:text-slate-400 text-center italic">
+                      No live demo available
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))
