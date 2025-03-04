@@ -1,0 +1,156 @@
+---
+import { getAwards, getCertificates, getEducation } from "../lib/directus";
+import FeatherIcon from "./FeatherIcon.astro";
+
+const educations = await getEducation();
+const awards = await getAwards();
+const certificates = await getCertificates();
+---
+
+<section id="education" class="scroll-mt-16">
+  <div>
+    <h2 class="text-3xl font-bold mb-8">Education & Certifications</h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold mb-6">Education</h3>
+
+        <div class="space-y-8">
+          {
+            educations.length > 0 ? (
+              educations.map((education) => (
+                <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800/40">
+                  <h4 class="font-semibold">{education.degree}</h4>
+                  <p class="text-slate-700 dark:text-slate-300 mt-1">
+                    {education.institution}
+                  </p>
+                  <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    {education.location}
+                  </p>
+
+                  <div class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    {new Date(education.start_date).getFullYear()} -{" "}
+                    {new Date(education.end_date).getFullYear()}
+                  </div>
+
+                  <div class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Grade: {education.grade}
+                  </div>
+
+                  <div class="mt-3 text-sm">
+                    <p class="text-slate-700 dark:text-slate-300">
+                      {education.focus}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-lg">
+                <p class="text-center text-slate-600 dark:text-slate-400">
+                  Education will be loaded from Directus CMS.
+                </p>
+              </div>
+            )
+          }
+        </div>
+
+        {
+          awards.length > 0 && (
+            <div class="mt-10">
+              <h3 class="text-xl font-semibold mb-6">Awards</h3>
+
+              <div class="space-y-4">
+                {awards.map((award) => (
+                  <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800/40">
+                    <h4 class="font-semibold">{award.title}</h4>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm mt-1">
+                      {award.organization}
+                    </p>
+                    <p class="text-slate-700 dark:text-slate-300 mt-3 text-sm">
+                      {award.description}
+                    </p>
+
+                    <div class="flex items-center justify-between mt-4">
+                      <span class="text-sm text-slate-600 dark:text-slate-400">
+                        {new Date(award.date).toLocaleDateString("en-US", {
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </span>
+
+                      {award.link && (
+                        <a
+                          href={award.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-sm text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          View Award
+                          <FeatherIcon
+                            name="external-link"
+                            size={16}
+                            class="h-4 w-4"
+                          />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold mb-6">Certificates</h3>
+
+        <div class="space-y-4">
+          {
+            certificates.length > 0 ? (
+              certificates.map((certificate) => (
+                <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-6 bg-white dark:bg-slate-800/40">
+                  <h4 class="font-semibold">{certificate.title}</h4>
+                  <p class="text-slate-700 dark:text-slate-300 mt-1 text-sm">
+                    {certificate.organization}
+                  </p>
+
+                  <div class="flex items-center justify-between mt-4">
+                    <span class="text-sm text-slate-600 dark:text-slate-400">
+                      {new Date(certificate.date).toLocaleDateString("en-US", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+
+                    {certificate.link && (
+                      <a
+                        href={certificate.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-sm text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+                      >
+                        View Certificate
+                        <FeatherIcon
+                          name="external-link"
+                          size={16}
+                          class="h-4 w-4"
+                        />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-lg">
+                <p class="text-center text-slate-600 dark:text-slate-400">
+                  Certificates will be loaded from Directus CMS.
+                </p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,22 +1,309 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Alois Carrera | Software Engineer",
+	description = "Personal portfolio of Alois Carrera, Software Engineer and Solutions Architect specializing in systems integration and API development.",
+} = Astro.props;
+
+import "../styles/global.css";
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<title>{title}</title>
 	</head>
-	<body>
-		<slot />
+	<body
+		class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen relative overflow-x-hidden"
+	>
+		<!-- Blurry gradient background using Tailwind with more random positioning -->
+		<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+			<!-- Light mode gradients -->
+			<div class="absolute inset-0 dark:hidden">
+				<!-- Various randomly positioned gradients with class names -->
+				<div
+					class="gradient-1 absolute -top-20 left-[15%] w-[35rem] h-[35rem] bg-blue-300 rounded-full opacity-60 blur-[120px]"
+				>
+				</div>
+				<div
+					class="gradient-2 absolute top-[25%] -right-24 w-[28rem] h-[28rem] bg-indigo-200 rounded-full opacity-70 blur-[100px]"
+				>
+				</div>
+				<div
+					class="gradient-3 absolute top-[60%] left-[5%] w-[32rem] h-[32rem] bg-sky-200 rounded-full opacity-60 blur-[90px]"
+				>
+				</div>
+				<div
+					class="gradient-4 absolute -bottom-32 right-[20%] w-[38rem] h-[38rem] bg-cyan-300 rounded-full opacity-50 blur-[110px]"
+				>
+				</div>
+				<div
+					class="gradient-5 absolute top-[40%] left-[35%] w-[25rem] h-[25rem] bg-purple-200 rounded-full opacity-40 blur-[80px]"
+				>
+				</div>
+				<div
+					class="gradient-6 absolute top-[10%] left-[60%] w-[20rem] h-[20rem] bg-teal-200 rounded-full opacity-50 blur-[70px]"
+				>
+				</div>
+				<div
+					class="gradient-7 absolute bottom-[15%] left-[45%] w-[22rem] h-[22rem] bg-slate-200 rounded-full opacity-60 blur-[90px]"
+				>
+				</div>
+			</div>
+
+			<!-- Dark mode gradients -->
+			<div class="absolute inset-0 hidden dark:block">
+				<!-- Various randomly positioned gradients with class names -->
+				<div
+					class="dark-gradient-1 absolute -top-20 left-[15%] w-[35rem] h-[35rem] bg-[#6a84d3] rounded-full opacity-40 blur-[120px]"
+				>
+				</div>
+				<div
+					class="dark-gradient-2 absolute top-[25%] -right-24 w-[28rem] h-[28rem] bg-[#211965] rounded-full opacity-50 blur-[100px]"
+				>
+				</div>
+				<div
+					class="dark-gradient-3 absolute top-[60%] left-[5%] w-[32rem] h-[32rem] bg-[#4a64b3] rounded-full opacity-40 blur-[90px]"
+				>
+				</div>
+				<div
+					class="dark-gradient-4 absolute -bottom-32 right-[20%] w-[38rem] h-[38rem] bg-[#6a84d3] rounded-full opacity-30 blur-[110px]"
+				>
+				</div>
+				<div
+					class="dark-gradient-5 absolute top-[40%] left-[35%] w-[25rem] h-[25rem] bg-[#3a54a3] rounded-full opacity-40 blur-[80px]"
+				>
+				</div>
+				<div
+					class="dark-gradient-6 absolute top-[10%] left-[60%] w-[20rem] h-[20rem] bg-[#211965] rounded-full opacity-60 blur-[70px]"
+				>
+				</div>
+				<div
+					class="dark-gradient-7 absolute bottom-[15%] left-[45%] w-[22rem] h-[22rem] bg-[#5a74c3] rounded-full opacity-50 blur-[90px]"
+				>
+				</div>
+			</div>
+		</div>
+
+		<div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 relative z-10">
+			<slot />
+		</div>
+
+		<style>
+			/* Multiple float animations with different movement patterns */
+			@keyframes float1 {
+				0% {
+					transform: translate(0, 0);
+				}
+				33% {
+					transform: translate(60px, -50px);
+				}
+				66% {
+					transform: translate(-40px, 60px);
+				}
+				100% {
+					transform: translate(0, 0);
+				}
+			}
+
+			@keyframes float2 {
+				0% {
+					transform: translate(0, 0);
+				}
+				50% {
+					transform: translate(-50px, -70px);
+				}
+				100% {
+					transform: translate(0, 0);
+				}
+			}
+
+			@keyframes float3 {
+				0% {
+					transform: translate(0, 0);
+				}
+				25% {
+					transform: translate(40px, 60px);
+				}
+				75% {
+					transform: translate(-60px, 30px);
+				}
+				100% {
+					transform: translate(0, 0);
+				}
+			}
+
+			@keyframes float4 {
+				0% {
+					transform: translate(0, 0) scale(1);
+				}
+				50% {
+					transform: translate(40px, -35px) scale(1.5);
+				}
+				100% {
+					transform: translate(0, 0) scale(1);
+				}
+			}
+
+			/* Opacity/pulse animations with different timings */
+			@keyframes pulse1 {
+				0% {
+					opacity: 0.3;
+				}
+				50% {
+					opacity: 0.8;
+				}
+				100% {
+					opacity: 0.3;
+				}
+			}
+
+			@keyframes pulse2 {
+				0% {
+					opacity: 0.2;
+				}
+				33% {
+					opacity: 0.5;
+				}
+				66% {
+					opacity: 0.8;
+				}
+				100% {
+					opacity: 0.2;
+				}
+			}
+
+			@keyframes pulse3 {
+				0% {
+					opacity: 0.4;
+				}
+				50% {
+					opacity: 0.2;
+				}
+				100% {
+					opacity: 0.4;
+				}
+			}
+
+			/* Apply animations to all gradient elements with different durations */
+			/* Light mode gradients */
+			.gradient-1 {
+				animation:
+					float1 24s ease-in-out infinite,
+					pulse1 18s ease-in-out infinite;
+			}
+
+			.gradient-2 {
+				animation:
+					float2 20s ease-in-out infinite reverse,
+					pulse2 22s ease-in-out infinite;
+			}
+
+			.gradient-3 {
+				animation:
+					float3 26s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+					pulse3 20s ease-in-out infinite;
+			}
+
+			.gradient-4 {
+				animation:
+					float4 28s ease-in-out infinite,
+					pulse1 16s ease-in-out infinite;
+			}
+
+			.gradient-5 {
+				animation:
+					float2 22s ease-in-out infinite,
+					pulse2 24s ease-in-out infinite reverse;
+			}
+
+			.gradient-6 {
+				animation:
+					float1 18s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse,
+					pulse3 20s ease-in-out infinite;
+			}
+
+			.gradient-7 {
+				animation:
+					float3 25s ease-in-out infinite,
+					pulse1 18s ease-in-out infinite;
+			}
+
+			/* Dark mode gradients */
+			.dark-gradient-1 {
+				animation:
+					float3 22s ease-in-out infinite,
+					pulse2 16s ease-in-out infinite;
+			}
+
+			.dark-gradient-2 {
+				animation:
+					float4 19s ease-in-out infinite reverse,
+					pulse3 24s ease-in-out infinite;
+			}
+
+			.dark-gradient-3 {
+				animation:
+					float1 26s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+					pulse1 20s ease-in-out infinite;
+			}
+
+			.dark-gradient-4 {
+				animation:
+					float2 30s ease-in-out infinite,
+					pulse2 18s ease-in-out infinite;
+			}
+
+			.dark-gradient-5 {
+				animation:
+					float4 24s ease-in-out infinite reverse,
+					pulse3 22s ease-in-out infinite reverse;
+			}
+
+			.dark-gradient-6 {
+				animation:
+					float3 21s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+					pulse1 24s ease-in-out infinite;
+			}
+
+			.dark-gradient-7 {
+				animation:
+					float2 27s ease-in-out infinite reverse,
+					pulse2 25s ease-in-out infinite;
+			}
+		</style>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

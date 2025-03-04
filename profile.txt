@@ -1,0 +1,168 @@
+# Alois Carrera
+## Software Engineer
+
+**Location:** Panamá, Panama  
+**Email:** aloiscarrera@gmail.com  
+**LinkedIn:** [alois-carrera](https://www.linkedin.com/in/alois-carrera)  
+**GitHub:** [AloisCRR](https://github.com/AloisCRR)  
+
+## Summary
+Solutions Architect and Systems Engineer specialized in systems integration, API development, and digital transformation projects. Focused on modern technologies and agile methodologies with expertise in designing scalable systems and developing efficient, maintainable code. Demonstrated success leading key projects and delivering impactful solutions.
+
+## Skills
+
+### Languages
+- TypeScript
+- JavaScript
+- Python
+
+### Frameworks
+- Next.js
+- Nx
+- NestJS
+- FastAPI
+- JupyterLab
+
+### Databases
+- MongoDB
+- PostgreSQL
+- Elasticsearch
+- Microsoft SQL Server
+
+### Cloud & DevOps
+- AWS Lambda
+- Azure Functions
+- Azure Service Bus
+- Docker
+- Azure Container Apps
+
+## Work Experience
+
+### Integrations and Analytics Specialist
+**Company:** Hola Moda  
+**Location:** Panama City, Panama  
+**Duration:** May 2024 - Current  
+**Website:** https://holamoda.net  
+**Skills:** API Integration, Data Analysis, SAP Business One, Python, ELT, Power BI, Business Intelligence
+
+**Responsibilities and Achievements:**
+- Manage data integration between systems (H&M Global API, ICG Point of Sale, SAP Business One, WIS Logistics Software)
+- Conduct sales analysis and develop data ingestion and visualization solutions for H&M franchise in Central America and the Caribbean
+- Developed data pipeline for ingestion and processing of H&M merchandise shipments using Global API
+- Integrated H&M Global API with SAP Business One ERP using SAP Service Layer API for managing logistics
+- Designed, developed, and deployed multiple REST APIs for system integrations
+- Deployed internal tools using Azure VMs and Docker for data availability to store employees and managers
+- Analyzed sales data from ICG Point of Sale system and developed custom plugins
+- Integrated SAP with WIS logistics management system for warehouse operations
+- Created Python scripts for data ingestion and advanced analytics (ELT/ETL processes)
+- Enabled data availability for dashboard development using PowerBI
+
+### Solutions Architect
+**Company:** Eprezto  
+**Location:** Panama City, Panama  
+**Duration:** Dec 2022 - Apr 2024  
+**Website:** https://eprezto.gt/  
+**Skills:** Nx Monorepo, Next.js, Serverless Framework, AWS Lambda, Tailwind CSS, MongoDB, Cybersource by Visa, Elasticsearch
+
+**Responsibilities and Achievements:**
+- Led international expansion project focusing on API-based vehicle insurance systems for 3 countries (Costa Rica, Guatemala, Dominican Republic)
+- Implemented payment gateway integration (Visa Cybersource)
+- Managed a compact team
+- Established scalable system through monorepo with CI/CD process using Nx, Next.js and Serverless Framework
+- Developed vehicle insurance quotation system based on APIs
+- Managed electronic document delivery processes with major insurance companies in Guatemala and Costa Rica
+- Developed monorepo using Nx with CI/CD pipeline, reducing code duplication through shared design system with React and TailwindCSS
+
+### Software Engineer
+**Company:** Eprezto  
+**Location:** Panama City, Panama  
+**Duration:** Aug 2021 - Dec 2022  
+**Website:** https://eprezto.com/  
+**Skills:** Next.js, SEO, Blog, Tailwind CSS, Payments, Google PageSpeed, Google Lighthouse, Elasticsearch, AWS Lambda, MongoDB
+
+**Responsibilities and Achievements:**
+- Improved blog performance and main website payment integrations
+- Enhanced SEO and user experience
+- Migrated blog from WordPress to Next.js with TailwindCSS
+- Upgraded Eprezto Bluebook for vehicle price checking using Elasticsearch and AWS Lambda
+- Implemented PayCash API for cash payments from sandbox testing to live deployment
+
+### Research Intern
+**Organization:** ESALab Expert Systems And Applications  
+**Location:** Salamanca, Spain  
+**Duration:** Sep 2021 - Dec 2021  
+**Website:** https://esalab.es/estudiantes-de-la-universidad-tecnologica-de-panama-realizan-estancia-en-el-grupo-de-investigacion-esalab/  
+**Skills:** MySensors, IoT, NRF24L01+PA+LNA, Arduino, Capacitive soil moisture sensors, InfluxDB, Telegraf, MQTT, Grafana, AWS IoT, Systems Design, Radio Frequency (RF)
+
+**Responsibilities and Achievements:**
+- Developed intelligent irrigation control system using IoT technologies
+- Designed and executed system using NRF24L01+ modules, Arduino, and sensors for real-time data collection
+- Implemented InfluxDB for data logging, Telegraf for metric transportation, and Grafana for visualization
+- Leveraged AWS IoT as MQTT cloud broker for sustainable agriculture and efficient irrigation
+
+### Backend Engineer
+**Company:** EWEX  
+**Location:** Panama City, Panama  
+**Duration:** Feb 2021 - Jul 2021  
+**Website:** https://www.ewex-app.com  
+**Skills:** NestJS, Node.js, Clean Architecture, SOLID Principles, BitGo API, GitHub Actions, Docker, AWS ECS, PostgreSQL, Google Dialogflow, Serverless Framework, AWS Lambda
+
+**Responsibilities and Achievements:**
+- Led REST API development and cryptocurrency management
+- Developed REST API with NestJS on Node.js using clean architecture and SOLID principles
+- Managed cryptocurrency transactions using BitGo API
+- Established CI/CD pipelines with GitHub Actions for deployment on AWS ECS using Docker
+- Implemented PostgreSQL for data management
+- Created chatbot using Google Dialogflow and Serverless Framework on AWS Lambda
+
+## Projects
+
+### Notes AI Agent
+**Duration:** February 2025  
+**Website:** https://notes-ai-agent.aloiscrr.dev/
+
+**Features and Technologies:**
+- LLM-powered insights and automatic summary features
+- Built RAG (Retrieval-Augmented Generation) and SQL generation capabilities
+- Integrated secure authentication using Supabase
+- Developed real-time AI chat interface with persistent message history
+- Created full CRUD operations for note management
+- Implemented theme support with dark/light mode
+- Ensured type safety with TypeScript and Zod validation
+
+## Education
+
+### Bachelor in Computer and Systems Engineering
+**Institution:** Universidad Tecnológica de Panamá  
+**Location:** Veraguas Province, Panama  
+**Duration:** 2017 - 2021  
+**Grade:** 2.1/3.0
+
+**Focus:** Development of original and tailored computing solutions, strong mathematical and computational foundation
+
+## Awards
+
+### HACK4EDU 2021 - Senior Category
+**Organization:** ProFuturo Foundation  
+**Achievement:** Second place in senior category with SINGSPA project, a web application using machine learning to help people understand sign language
+
+## Certificates
+
+### EF SET Certificate 70/100, C1 Advanced
+**Organization:** EF Standard English Test  
+**Date:** October 11, 2022  
+**Link:** https://www.efset.org/cert/BnxaBz
+
+### Amazon Web Services Advanced Course
+**Institution:** Universidad Pontificia de Salamanca  
+**Date:** May 14, 2022  
+**Link:** https://drive.google.com/file/d/1a-vBZI-qi9wj4Tvj_LBsXs2kHYwoCfN7/view
+
+### #HACK4EDU - Second Prize Diploma
+**Institution:** Universidad Pontificia de Salamanca  
+**Date:** February 28, 2022  
+**Link:** https://drive.google.com/file/d/1vbiMMc8KareqzOBfsPT2jVRFEs9xC5V_/view
+
+## Languages
+- Spanish: Native speaker
+- English: Advanced

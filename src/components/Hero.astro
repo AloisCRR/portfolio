@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import { getProfile } from "../lib/directus";
+import FeatherIcon from "./FeatherIcon.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const profile = await getProfile();
+const name = profile?.name || "Alois Carrera";
+const title = profile?.title || "Software Engineer";
+const summary =
+  profile?.summary ||
+  "Solutions Architect and Systems Engineer specialized in systems integration, API development, and digital transformation projects.";
+const location = profile?.location || "Panamá, Panama";
+const email = profile?.email || "aloiscarrera@gmail.com";
+const linkedin = profile?.linkedin || "alois-carrera";
+const github = profile?.github || "AloisCRR";
+---
+
+<section class={`${className}`}>
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="space-y-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
+            {name}
+          </h1>
+          <h2
+            class="text-xl md:text-2xl text-blue-600 dark:text-blue-400 font-medium mt-2"
+          >
+            {title}
+          </h2>
+          <p class="text-slate-700 dark:text-slate-300 mt-2">{location}</p>
+        </div>
+
+        <p class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed">
+          {summary}
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={`mailto:${email}`}
+            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white rounded-md hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FeatherIcon name="mail" class="h-5 w-5" />
+            Email
+          </a>
+
+          <a
+            href={`https://www.linkedin.com/in/${linkedin}`}
+            class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FeatherIcon name="linkedin" class="h-5 w-5" />
+            LinkedIn
+          </a>
+
+          <a
+            href={`https://github.com/${github}`}
+            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-md hover:bg-slate-700 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FeatherIcon name="github" class="h-5 w-5" />
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-lg flex justify-end">
+      {
+        profile?.profile_image ? (
+          <Image
+            src={`${import.meta.env.DIRECTUS_URL}/assets/${profile.profile_image}`}
+            alt={name}
+            class="object-cover"
+            loading="eager"
+            width="500"
+            height="500"
+          />
+        ) : (
+          <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <span class="text-5xl text-white font-bold">{name.charAt(0)}</span>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

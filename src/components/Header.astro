@@ -1,0 +1,80 @@
+---
+import { getProfile } from "../lib/directus";
+import FeatherIcon from "./FeatherIcon.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const profile = await getProfile();
+
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Experience", href: "#experience" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Education", href: "#education" },
+  { name: "Collaborate", href: "#collaborate" },
+];
+---
+
+<header class={`sm:pt-16 pt-6 ${className}`}>
+  <div class="flex items-center justify-between">
+    <a href="/" class="text-xl font-bold tracking-tight">
+      {profile?.name || "Alois Carrera"}
+    </a>
+
+    <nav class="hidden md:block">
+      <ul class="flex space-x-8">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="md:hidden">
+      <button id="menu-toggle" class="p-2" aria-label="Toggle menu">
+        <FeatherIcon name="menu" size={24} class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden mt-4">
+    <ul class="flex flex-col space-y-4">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+</script>
