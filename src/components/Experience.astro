@@ -86,7 +86,7 @@ const experiences = await getWorkExperience();
                   <h4 class="text-sm font-medium mb-2">Skills</h4>
                   <div class="flex flex-wrap gap-2">
                     {experience.skills.split(",").map((skill) => (
-                      <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800/40 text-xs rounded">
+                      <span class="px-2 py-1 bg-slate-100/60 dark:bg-slate-800/40 text-xs rounded">
                         {skill.trim()}
                       </span>
                     ))}
