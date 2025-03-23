@@ -1,4 +1,4 @@
-import { createDirectus, readItems, rest } from '@directus/sdk';
+import { createDirectus, readItems, readSingleton, rest, staticToken } from '@directus/sdk';
 
 // Types for our Directus collections
 export type Profile = {
@@ -75,33 +75,26 @@ export type Language = {
 };
 
 export type Collections = {
-  profile: Profile[];
-  skills: Skill[];
-  work_experience: WorkExperience[];
-  projects: Project[];
-  education: Education[];
-  awards: Award[];
-  certificates: Certificate[];
-  languages: Language[];
+  portfolio_profile: Profile;
+  portfolio_skills: Skill[];
+  portfolio_work_experience: WorkExperience[];
+  portfolio_projects: Project[];
+  portfolio_education: Education[];
+  portfolio_awards: Award[];
+  portfolio_certificates: Certificate[];
+  portfolio_languages: Language[];
 };
 
 // Initialize the Directus client
 const directus = createDirectus<Collections>(import.meta.env.DIRECTUS_URL)
-  .with(rest({
-    onRequest: (options) => ({
-      ...options,
-      headers: {
-        ...options.headers,
-        'Authorization': `Bearer ${import.meta.env.DIRECTUS_TOKEN}`
-      }
-    })
-  }));
+  .with(staticToken(import.meta.env.DIRECTUS_TOKEN))
+  .with(rest());
 
 // Helper functions to fetch data
 export async function getProfile() {
   try {
-    const profiles = await directus.request(readItems('profile'));
-    return profiles[0];
+    const profiles = await directus.request(readSingleton('portfolio_profile'));
+    return profiles;
   } catch (error) {
     console.error('Error fetching profile:', error);
     return null;
@@ -110,7 +103,7 @@ export async function getProfile() {
 
 export async function getSkills() {
   try {
-    return await directus.request(readItems('skills'));
+    return await directus.request(readItems('portfolio_skills'));
   } catch (error) {
     console.error('Error fetching skills:', error);
     return [];
@@ -119,7 +112,7 @@ export async function getSkills() {
 
 export async function getWorkExperience() {
   try {
-    return await directus.request(readItems('work_experience', {
+    return await directus.request(readItems('portfolio_work_experience', {
       sort: ['-start_date']
     }));
   } catch (error) {
@@ -130,7 +123,7 @@ export async function getWorkExperience() {
 
 export async function getProjects() {
   try {
-    return await directus.request(readItems('projects', {
+    return await directus.request(readItems('portfolio_projects', {
       sort: ['-date']
     }));
   } catch (error) {
@@ -141,7 +134,7 @@ export async function getProjects() {
 
 export async function getEducation() {
   try {
-    return await directus.request(readItems('education', {
+    return await directus.request(readItems('portfolio_education', {
       sort: ['-end_date']
     }));
   } catch (error) {
@@ -152,7 +145,7 @@ export async function getEducation() {
 
 export async function getAwards() {
   try {
-    return await directus.request(readItems('awards'));
+    return await directus.request(readItems('portfolio_awards'));
   } catch (error) {
     console.error('Error fetching awards:', error);
     return [];
@@ -161,7 +154,7 @@ export async function getAwards() {
 
 export async function getCertificates() {
   try {
-    return await directus.request(readItems('certificates', {
+    return await directus.request(readItems('portfolio_certificates', {
       sort: ['-date']
     }));
   } catch (error) {
@@ -172,7 +165,7 @@ export async function getCertificates() {
 
 export async function getLanguages() {
   try {
-    return await directus.request(readItems('languages'));
+    return await directus.request(readItems('portfolio_languages'));
   } catch (error) {
     console.error('Error fetching languages:', error);
     return [];
