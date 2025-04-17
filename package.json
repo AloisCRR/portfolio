@@ -12,6 +12,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@directus/sdk": "^18.0.3",
     "@tailwindcss/vite": "^4.0.9",
+    "animejs": "^4.0.1",
     "astro": "^5.4.1",
     "feather-icons": "^4.29.2",
     "tailwindcss": "^4.0.9"
