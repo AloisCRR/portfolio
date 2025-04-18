@@ -9,6 +9,7 @@ export type Profile = {
   email: string;
   linkedin: string;
   github: string;
+  resume: string;
   summary: string;
   profile_image?: string;
 };
