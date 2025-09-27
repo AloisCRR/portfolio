@@ -1,7 +1,11 @@
 ---
-import { getWorkExperience } from "../lib/directus";
+import type { WorkExperience } from "../types/directus";
 
-const experiences = await getWorkExperience();
+interface Props {
+  workExperience?: WorkExperience[];
+}
+
+const { workExperience: experiences = [] } = Astro.props;
 ---
 
 <section id="experience" class="scroll-mt-16 relative">
@@ -14,11 +18,10 @@ const experiences = await getWorkExperience();
             {(() => {
               // Calculate total years of experience
               const totalMonths = experiences.reduce((total, exp) => {
-                const startDate = new Date(exp.start_date);
+                const { start_date, end_date } = exp.resume_work_experience_id;
+                const startDate = new Date(start_date);
 
-                const endDate = exp.end_date
-                  ? new Date(exp.end_date)
-                  : new Date();
+                const endDate = end_date ? new Date(end_date) : new Date();
 
                 const months =
                   (endDate.getFullYear() - startDate.getFullYear()) * 12 +
@@ -38,81 +41,92 @@ const experiences = await getWorkExperience();
     <div>
       {
         experiences.length > 0 ? (
-          experiences.map((experience, index) => (
-            <div
-              class={`relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-blue-600 dark:before:bg-blue-500 ${index > 0 ? "pt-16" : ""}`}
-            >
+          experiences.map((experience, index) => {
+            const {
+              title,
+              company,
+              location,
+              start_date,
+              end_date,
+              website,
+              tech_used,
+              responsibilities,
+            } = experience.resume_work_experience_id;
+
+            return (
               <div
-                class={`absolute left-0.5 ${index > 0 ? "top-18.5" : "top-2.5"} w-2 h-2 -translate-x-[5px] rounded-full bg-blue-600 dark:bg-blue-500`}
-              />
+                class={`relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-blue-600 dark:before:bg-blue-500 ${
+                  index > 0 ? "pt-16" : ""
+                }`}>
+                <div
+                  class={`absolute left-0.5 ${
+                    index > 0 ? "top-18.5" : "top-2.5"
+                  } w-2 h-2 -translate-x-[5px] rounded-full bg-blue-600 dark:bg-blue-500`} />
 
-              <div>
-                <h3 class="text-xl font-semibold">{experience.title}</h3>
-                <div class="flex flex-wrap items-center gap-x-2 text-slate-700 dark:text-slate-300 mt-1">
-                  <span class="font-medium">{experience.company}</span>
-                  <span class="text-xs">•</span>
-                  <span>{experience.location}</span>
-                </div>
+                <div>
+                  <h3 class="text-xl font-semibold">{title}</h3>
+                  <div class="flex flex-wrap items-center gap-x-2 text-slate-700 dark:text-slate-300 mt-1">
+                    <span class="font-medium">{company}</span>
+                    <span class="text-xs">•</span>
+                    <span>{location}</span>
+                  </div>
 
-                <div class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                  {new Date(experience.start_date).toLocaleDateString("en-US", {
-                    month: "long",
-                    year: "numeric",
-                  })}{" "}
-                  -{" "}
-                  {experience.end_date
-                    ? new Date(experience.end_date).toLocaleDateString(
-                        "en-US",
-                        {
+                  <div class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    {new Date(start_date).toLocaleDateString("en-US", {
+                      month: "long",
+                      year: "numeric",
+                    })}{" "}
+                    -{" "}
+                    {end_date
+                      ? new Date(end_date).toLocaleDateString("en-US", {
                           month: "long",
                           year: "numeric",
-                        },
-                      )
-                    : "Present"}
-                </div>
-
-                {experience.website && (
-                  <a
-                    href={experience.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline mt-1"
-                  >
-                    {new URL(experience.website).hostname}
-                  </a>
-                )}
-
-                <div class="mt-4">
-                  <h4 class="text-sm font-medium mb-2">Skills</h4>
-                  <div class="flex flex-wrap gap-2">
-                    {experience.skills.split(",").map((skill) => (
-                      <span class="px-2 py-1 bg-slate-100/60 dark:bg-slate-800/40 text-xs rounded">
-                        {skill.trim()}
-                      </span>
-                    ))}
+                        })
+                      : "Present"}
                   </div>
-                </div>
 
-                {experience.responsibilities.length > 0 && (
+                  {website && (
+                    <a
+                      href={website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline mt-1">
+                      {new URL(website).hostname}
+                    </a>
+                  )}
+
                   <div class="mt-4">
-                    <h4 class="text-sm font-medium mb-2">
-                      Responsibilities & Achievements
-                    </h4>
-                    <ul class="space-y-2 text-slate-700 dark:text-slate-300">
-                      {experience.responsibilities.map((item) => (
-                        <li class="flex gap-2">
-                          <span class="text-blue-600 dark:text-blue-400 flex-shrink-0">
-                            •
-                          </span>
-                          <span>{item}</span>
-                        </li>
+                    <h4 class="text-sm font-medium mb-2">Skills</h4>
+                    <div class="flex flex-wrap gap-2">
+                      {tech_used.map((tech) => (
+                        <span class="px-2 py-1 bg-slate-100/60 dark:bg-slate-800/40 text-xs rounded">
+                          {tech.skills_id.name}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
-                )}
+
+                  {responsibilities.length > 0 && (
+                    <div class="mt-4">
+                      <h4 class="text-sm font-medium mb-2">
+                        Responsibilities & Achievements
+                      </h4>
+                      <ul class="space-y-2 text-slate-700 dark:text-slate-300">
+                        {responsibilities.map((item) => (
+                          <li class="flex gap-2">
+                            <span class="text-blue-600 dark:text-blue-400 flex-shrink-0">
+                              •
+                            </span>
+                            <span>{item.description}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-lg">
             <p class="text-center text-slate-600 dark:text-slate-400">

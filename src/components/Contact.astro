@@ -1,17 +1,26 @@
 ---
-import { getProfile } from "../lib/directus";
-import FeatherIcon from "./FeatherIcon.astro";
+import { Image } from "astro:assets";
+import type { Link } from "../types/directus";
+import {
+  CodeIcon,
+  CpuIcon,
+  DatabaseIcon,
+  ServerIcon,
+  SmartphoneIcon,
+  GitBranchIcon,
+  MessageCircleIcon,
+} from "astro-feather";
 
-const profile = await getProfile();
+interface Props {
+  links?: Link[];
+}
 
-const email = profile?.email || "aloiscarrera@gmail.com";
-const linkedin = profile?.linkedin || "alois-carrera";
-const github = profile?.github || "AloisCRR";
+const { links = [] } = Astro.props;
 
 // Collaboration project types based on interests
 const collaborationAreas = [
   {
-    icon: "code",
+    icon: CodeIcon,
     title: "Web Development",
     description:
       "Full-stack applications with modern frameworks and architectures",
@@ -22,13 +31,13 @@ const collaborationAreas = [
     ],
   },
   {
-    icon: "cpu",
+    icon: CpuIcon,
     title: "AI & LLMs",
     description: "Building intelligent applications with large language models",
     examples: ["RAG systems", "LLM fine-tuning", "AI-powered tools"],
   },
   {
-    icon: "database",
+    icon: DatabaseIcon,
     title: "Data Engineering",
     description: "Data pipelines, warehousing, and analytics solutions",
     examples: [
@@ -38,19 +47,19 @@ const collaborationAreas = [
     ],
   },
   {
-    icon: "server",
+    icon: ServerIcon,
     title: "Systems & Backend",
     description: "Robust backend services and distributed systems",
     examples: ["Microservices", "APIs (REST, GraphQL)", "Kubernetes"],
   },
   {
-    icon: "smartphone",
+    icon: SmartphoneIcon,
     title: "Mobile Apps",
     description: "Cross-platform mobile application development",
     examples: ["React Native", "Flutter"],
   },
   {
-    icon: "git-branch",
+    icon: GitBranchIcon,
     title: "Open Source",
     description: "Contributing to or starting open source projects",
     examples: ["Library maintenance", "Documentation", "Feature development"],
@@ -78,9 +87,9 @@ const collaborationAreas = [
           collaborationAreas.map((area) => (
             <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
               <div class="flex items-center gap-3 mb-2">
-                <FeatherIcon
-                  name={area.icon}
-                  class="h-5 w-5 text-blue-600 dark:text-blue-400"
+                <area.icon
+                  size={20}
+                  customClasses="h-5 w-5 text-blue-600 dark:text-blue-400"
                 />
                 <h4 class="font-medium">{area.title}</h4>
               </div>
@@ -99,40 +108,32 @@ const collaborationAreas = [
 
       <div class="dark:bg-slate-700/30 rounded-lg p-4">
         <h4 class="font-medium mb-6 flex items-center gap-2">
-          <FeatherIcon
-            name="message-circle"
-            class="h-5 w-5 text-blue-600 dark:text-blue-400"
+          <MessageCircleIcon
+            size={20}
+            customClasses="h-5 w-5 text-blue-600 dark:text-blue-400"
           />
           <span>Get in touch to discuss collaboration:</span>
         </h4>
         <div class="grid sm:grid-cols-3 gap-4 place-items-center">
-          <a
-            href={`mailto:${email}`}
-            class="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            <FeatherIcon name="mail" class="h-4 w-4" />
-            <span class="text-sm">{email}</span>
-          </a>
+          {
+            links.map((link) => (
+              <a
+                href={link.link}
+                class="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                {link.icon && (
+                  <Image
+                    src={link.icon}
+                    alt={`${link.name}-icon`}
+                    width="16"
+                    height="16"
+                  />
+                )}
 
-          <a
-            href={`https://www.linkedin.com/in/${linkedin}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            <FeatherIcon name="linkedin" class="h-4 w-4" />
-            <span class="text-sm">LinkedIn</span>
-          </a>
-
-          <a
-            href={`https://github.com/${github}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            <FeatherIcon name="github" class="h-4 w-4" />
-            <span class="text-sm">GitHub</span>
-          </a>
+                <span class="text-sm">{link.name}</span>
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>

@@ -1,26 +1,40 @@
 ---
-import { getSkills } from "../lib/directus";
-import FeatherIcon from "./FeatherIcon.astro";
+import type { SkillCategory } from "../types/directus";
+import {
+  CodeIcon,
+  LayoutIcon,
+  ServerIcon,
+  DatabaseIcon,
+  CloudIcon,
+  ToolIcon,
+  PenToolIcon,
+  SmartphoneIcon,
+  CodesandboxIcon,
+  LayersIcon,
+} from "astro-feather";
 
-const skills = await getSkills();
+interface Props {
+  skills?: SkillCategory[];
+}
+
+const { skills = [] } = Astro.props;
 
 // Helper function to determine icon for a skill category
 const getCategoryIcon = (category: string) => {
-  const iconMap: Record<string, string> = {
-    "Programming Languages": "code",
-    Frontend: "layout",
-    Backend: "server",
-    Databases: "database",
-    DevOps: "cloud",
-    Tools: "tool",
-    Design: "figma",
-    Frameworks: "framer",
-    Mobile: "smartphone",
-    Cloud: "cloud",
-    // Add more mappings as needed
+  const iconMap: Record<string, any> = {
+    "Programming Languages": CodeIcon,
+    Frontend: LayoutIcon,
+    Backend: ServerIcon,
+    Databases: DatabaseIcon,
+    DevOps: CloudIcon,
+    Tools: ToolIcon,
+    Design: PenToolIcon,
+    Frameworks: LayersIcon,
+    Mobile: SmartphoneIcon,
+    Cloud: CloudIcon,
   };
 
-  return iconMap[category] || "codesandbox";
+  return iconMap[category] || CodesandboxIcon;
 };
 ---
 
@@ -33,25 +47,26 @@ const getCategoryIcon = (category: string) => {
     >
       {
         skills.length > 0 ? (
-          skills.map((skill) => (
-            <div class="bg-white/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-lg p-6 text-center transition-transform hover:-translate-y-1 hover:shadow-md">
-              <div class="flex justify-center items-center w-12 h-12 mx-auto mb-3 bg-blue-100 dark:bg-blue-900/40 rounded-full">
-                <FeatherIcon
-                  name={getCategoryIcon(skill.category)}
-                  size={24}
-                  class="text-blue-500 dark:text-blue-400"
-                />
+          skills.map((skill) => {
+            const { category, skills: skillItems } = skill.resume_skills_id;
+            const Icon = getCategoryIcon(category);
+
+            return (
+              <div class="bg-white/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-lg p-6 text-center transition-transform hover:-translate-y-1 hover:shadow-md">
+                <div class="flex justify-center items-center w-12 h-12 mx-auto mb-3 bg-blue-100 dark:bg-blue-900/40 rounded-full">
+                  {<Icon size={24} class="text-blue-500 dark:text-blue-400" />}
+                </div>
+                <h3 class="text-lg font-semibold mb-3">{category}</h3>
+                <ul class="space-y-1">
+                  {skillItems.map((item) => (
+                    <li class="text-sm py-1 border-b border-dashed border-slate-400 dark:border-slate-600 last:border-0">
+                      {item.name}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 class="text-lg font-semibold mb-3">{skill.category}</h3>
-              <ul class="space-y-1">
-                {skill.skills.map((item) => (
-                  <li class="text-sm py-1 border-b border-dashed border-slate-400 dark:border-slate-600 last:border-0">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-lg w-full shadow-sm">
             <p class="text-center text-slate-600 dark:text-slate-400">

@@ -1,25 +1,20 @@
 ---
 import { Image } from "astro:assets";
-import { getProfile } from "../lib/directus";
-import FeatherIcon from "./FeatherIcon.astro";
+import type { Resume } from "../types/directus";
 
 interface Props {
   class?: string;
+  resume: Resume | null;
 }
 
-const { class: className = "" } = Astro.props;
+const { class: className = "", resume } = Astro.props;
 
-const profile = await getProfile();
-const name = profile?.name || "Alois Carrera";
-const title = profile?.title || "Software Engineer";
+const name = resume?.name || "Alois Carrera";
+const title = resume?.title || "Software Engineer";
 const summary =
-  profile?.summary ||
+  resume?.summary ||
   "Solutions Architect and Systems Engineer specialized in systems integration, API development, and digital transformation projects.";
-const location = profile?.location || "Panamá, Panama";
-const email = profile?.email || "aloiscarrera@gmail.com";
-const linkedin = profile?.linkedin || "alois-carrera";
-const github = profile?.github || "AloisCRR";
-const resume = profile?.resume || "example.com";
+const location = resume?.location || "Panamá, Panama";
 ---
 
 <section class={`${className}`}>
@@ -43,53 +38,35 @@ const resume = profile?.resume || "example.com";
         </p>
 
         <div class="flex flex-wrap gap-4">
-          <a
-            href={`mailto:${email}`}
-            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white rounded-md hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FeatherIcon name="mail" class="h-5 w-5" />
-            Email
-          </a>
-
-          <a
-            href={`https://www.linkedin.com/in/${linkedin}`}
-            class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FeatherIcon name="linkedin" class="h-5 w-5" />
-            LinkedIn
-          </a>
-
-          <a
-            href={`https://github.com/${github}`}
-            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-md hover:bg-slate-700 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FeatherIcon name="github" class="h-5 w-5" />
-            GitHub
-          </a>
-          <a
-            href={resume}
-            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white rounded-md hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FeatherIcon name="file-text" class="h-5 w-5" />
-            Resume
-          </a>
+          {
+            resume?.links?.map((link) => (
+              <a
+                href={link.link}
+                class="inline-flex items-center gap-3 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white rounded-md hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.icon && (
+                  <Image
+                    src={link.icon}
+                    alt={`${link.name}-icon`}
+                    width="20"
+                    height="20"
+                  />
+                )}
+                {link.name}
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>
 
     <div class="rounded-lg flex justify-end">
       {
-        profile?.profile_image ? (
+        resume?.profile_image ? (
           <Image
-            src={`${import.meta.env.DIRECTUS_URL}/assets/${profile.profile_image}`}
+            src={resume.profile_image}
             alt={name}
             class="object-cover"
             loading="eager"

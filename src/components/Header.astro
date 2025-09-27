@@ -1,14 +1,12 @@
 ---
-import { getProfile } from "../lib/directus";
-import FeatherIcon from "./FeatherIcon.astro";
+import { MenuIcon } from "astro-feather";
 
 interface Props {
   class?: string;
+  name?: string;
 }
 
-const { class: className = "" } = Astro.props;
-
-const profile = await getProfile();
+const { class: className = "", name } = Astro.props;
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -23,7 +21,7 @@ const navItems = [
 <header class={`sm:pt-16 pt-6 ${className}`}>
   <div class="flex items-center justify-between">
     <a href="/" class="text-xl font-bold tracking-tight">
-      {profile?.name || "Alois Carrera"}
+      {name || "Alois Carrera"}
     </a>
 
     <nav class="hidden md:block">
@@ -45,7 +43,7 @@ const navItems = [
 
     <div class="md:hidden">
       <button id="menu-toggle" class="p-2" aria-label="Toggle menu">
-        <FeatherIcon name="menu" size={24} class="w-6 h-6" />
+        <MenuIcon size={24} />
       </button>
     </div>
   </div>

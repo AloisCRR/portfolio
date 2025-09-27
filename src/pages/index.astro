@@ -8,20 +8,28 @@ import Hero from "../components/Hero.astro";
 import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Layout from "../layouts/Layout.astro";
+import { getResumeData } from "../lib/graphql";
+import type { Resume } from "../types/directus";
+
+const resume: Resume | null = await getResumeData();
 ---
 
 <Layout
-  title="Alois Carrera | Software Engineer | Data Specialist | Cloud Enthusiast"
-  description="Alois Carrera - Software Engineer, Data Specialist, and Cloud Enthusiast. Expert in full-stack development (TypeScript, Python), data engineering (ETL/ELT, analysis), and cloud infrastructure (AWS, Azure). Delivering end-to-end solutions for system integration, operational efficiency, and data-driven insights."
+  title={`${resume?.name} | ${resume?.title}`}
+  description={resume?.summary}
 >
-  <Header />
+  <Header name={resume?.name} />
   <main class="space-y-16 sm:space-y-32 py-14 sm:py-28">
-    <Hero />
-    <Experience />
-    <Projects />
-    <Skills />
-    <Education />
-    <Contact />
+    <Hero resume={resume} />
+    <Experience workExperience={resume?.work_experience} />
+    <Projects projects={resume?.projects} />
+    <Skills skills={resume?.skills} />
+    <Education
+      education={resume?.education}
+      awards={resume?.awards}
+      certificates={resume?.certificates}
+    />
+    <Contact links={resume?.links} />
   </main>
   <Footer />
 </Layout>
