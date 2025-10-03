@@ -51,6 +51,7 @@ const { workExperience: experiences = [] } = Astro.props;
               website,
               tech_used,
               responsibilities,
+              description,
             } = experience.resume_work_experience_id;
 
             return (
@@ -84,6 +85,12 @@ const { workExperience: experiences = [] } = Astro.props;
                         })
                       : "Present"}
                   </div>
+
+                  {description && (
+                    <p class="text-slate-700 dark:text-slate-300 mt-2 text-sm">
+                      {description}
+                    </p>
+                  )}
 
                   {website && (
                     <a

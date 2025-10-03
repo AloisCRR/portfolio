@@ -28,6 +28,7 @@ export interface WorkExperience {
     responsibilities: Responsibility[];
     title: string;
     location: string;
+    description: string;
   };
 }
 

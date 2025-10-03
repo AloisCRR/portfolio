@@ -25,6 +25,7 @@ query GetResume {
         id
         company
         title
+        description
         location
         start_date
         end_date
