@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { Project } from "../types/directus";
-import { ExternalLinkIcon } from "astro-feather";
+import { ExternalLinkIcon, EyeIcon } from "astro-feather";
 
 interface Props {
   projects?: Project[];
@@ -22,15 +22,28 @@ const { projects = [] } = Astro.props;
               project.resume_projects_id;
             return (
               <div class="relative border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white/40 dark:bg-slate-800/40 shadow-sm hover:shadow-md transition-shadow">
-                <div class="h-56 overflow-hidden relative">
+                <div class="h-56 overflow-hidden relative group">
                   {image ? (
-                    <Image
-                      src={image}
-                      alt={title}
-                      width={200}
-                      height={200}
-                      class="w-full h-full object-cover object-center"
-                    />
+                    <a
+                      href={image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="block w-full h-full"
+                    >
+                      <Image
+                        src={image}
+                        alt={title}
+                        width={200}
+                        height={200}
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <EyeIcon
+                          customClasses="text-white transform transition-transform duration-300 group-hover:scale-125"
+                          size={48}
+                        />
+                      </div>
+                    </a>
                   ) : (
                     <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                       <span class="text-2xl text-white font-bold">{title}</span>
